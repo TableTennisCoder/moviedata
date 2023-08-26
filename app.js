@@ -1,22 +1,34 @@
 const puppeteer = require("puppeteer");
 const express = require("express");
 const cache = require("memory-cache");
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.get("/api/data", async (req, res) => {
+  const cachedData = cache.get("movieData"); // Try to get data from cache
 
-    const cachedData = cache.get('movieData'); // Try to get data from cache
-
-    if (cachedData) {
-        console.log('Data retrieved from cache');
-        res.json(cachedData);
-        return;
-    }
+  if (cachedData) {
+    console.log("Data retrieved from cache");
+    res.json(cachedData);
+    return;
+  }
 
   try {
-    const browser = await puppeteer.launch({ headless: false });
+    const browser = await puppeteer.launch({
+      args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+      ],
+      executablePath:
+        process.env.NODE_ENV === "production"
+          ? process.env.PUPPETEER_EXECUTABLE_PATH
+          : puppeteer.executablePath(),
+    });
+
     const page = await browser.newPage();
 
     // handle dialogs
@@ -109,16 +121,14 @@ app.get("/api/data", async (req, res) => {
 
     await browser.close();
 
-    cache.put('movieData', data, 3600000); // Store data for 1 hour
+    cache.put("movieData", data, 3600000); // Store data for 1 hour
 
     res.send(data); // Return the data as JSON
-
   } catch (error) {
-      console.log(error);
-    res.status(500).json({ error: "Ooooops, something went wrong :(" });
+    res.status(500).json({ error: "An error occured." });
   }
 });
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-})
+  console.log(`Server is running on port ${port}`);
+});
