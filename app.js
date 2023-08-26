@@ -5,7 +5,7 @@ const cache = require("memory-cache");
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("https://moviedatafsk.onrender.com/api/data", async (req, res) => {
+app.get("/api/data", async (req, res) => {
 
     const cachedData = cache.get('movieData'); // Try to get data from cache
 
@@ -111,11 +111,11 @@ app.get("https://moviedatafsk.onrender.com/api/data", async (req, res) => {
 
     cache.put('movieData', data, 3600000); // Store data for 1 hour
 
-    res.json(data); // Return the data as JSON
+    res.send(data); // Return the data as JSON
 
   } catch (error) {
       console.log(error);
-    res.status(500).json({ error: error});
+    res.status(500).json({ error: "Ooooops, something went wrong :(" });
   }
 });
 
