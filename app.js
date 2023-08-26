@@ -116,6 +116,7 @@ app.get("/api/data", async (req, res) => {
     res.json({ title: "Yoooo, it works!" });
 
   } catch (error) {
+      console.log(error);
     res.status(500).json({ error: error});
   }
 });
