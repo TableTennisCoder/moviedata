@@ -5,7 +5,7 @@ const cache = require("memory-cache");
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/api/data", async (req, res) => {
+app.get("https://moviedatafsk.onrender.com/api/data", async (req, res) => {
 
     const cachedData = cache.get('movieData'); // Try to get data from cache
 
