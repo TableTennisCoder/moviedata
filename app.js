@@ -15,7 +15,7 @@ app.get("/api/data", async (req, res) => {
   //       return;
   //   }
 
-  // try {
+  try {
   //   const browser = await puppeteer.launch({ headless: false });
   //   const page = await browser.newPage();
 
