@@ -16,15 +16,15 @@ app.get("/api/data", async (req, res) => {
     // }
 
   try {
-    // const browser = await puppeteer.launch({ headless: false });
-    // const page = await browser.newPage();
+    const browser = await puppeteer.launch({ headless: false });
+    const page = await browser.newPage();
 
-    // // handle dialogs
-    // page.on("dialog", async (dialog) => {
-    //   await dialog.accept(); // Automatically press OK
-    // });
+    // handle dialogs
+    page.on("dialog", async (dialog) => {
+      await dialog.accept(); // Automatically press OK
+    });
 
-    // await page.goto("https://www.fsk.de/?seitid=491&tid=70");
+    await page.goto("https://www.fsk.de/?seitid=491&tid=70");
 
     // // Cookies dialog
     // await page.click(".buttonAll");
