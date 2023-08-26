@@ -7,13 +7,13 @@ const port = process.env.PORT || 3000;
 
 app.get("/api/data", async (req, res) => {
 
-  //   const cachedData = cache.get('movieData'); // Try to get data from cache
+    const cachedData = cache.get('movieData'); // Try to get data from cache
 
-  //   if (cachedData) {
-  //       console.log('Data retrieved from cache');
-  //       res.json(cachedData);
-  //       return;
-  //   }
+    if (cachedData) {
+        console.log('Data retrieved from cache');
+        res.json(cachedData);
+        return;
+    }
 
   try {
   //   const browser = await puppeteer.launch({ headless: false });
@@ -109,7 +109,7 @@ app.get("/api/data", async (req, res) => {
 
   //   await browser.close();
 
-  //   cache.put('movieData', data, 3600000); // Store data for 1 hour
+    cache.put('movieData', data, 3600000); // Store data for 1 hour
 
   //   res.json(data); // Return the data as JSON
 
