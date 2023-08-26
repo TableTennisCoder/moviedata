@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Puppeteer API Example</title>
+  </head>
+  <body>
+    <h1>Movie Data</h1>
+    <div id="movieList"></div>
+
+    <script>
+      async function fetchMovieData() {
+        try {
+          const response = await fetch("/api/data"); // Replace with your API URL
+          const data = await response.json();
+
+          const movieListElement = document.getElementById("movieList");
+          data.forEach((movie) => {
+            const movieElement = document.createElement("div");
+            movieElement.innerHTML = `
+                        <h2>${movie.title}</h2>
+                        <p>FSK: ${movie.fsk}</p>
+                        <p>Deskriptoren: ${movie.deskriptoren}</p>
+                    `;
+            movieListElement.appendChild(movieElement);
+          });
+        } catch (error) {
+          console.error("Error fetching movie data:", error);
+        }
+      }
+
+      fetchMovieData();
+    </script>
+  </body>
+</html>
