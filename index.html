@@ -10,7 +10,7 @@
     <script>
       async function fetchMovieData() {
         try {
-          const response = await fetch("https://moviedatafsk.cyclic.cloud/api/data");
+          const response = await fetch("https://moviedatafsk.onrender.com/api/data");
           const data = await response.json();
 
           const movieListElement = document.getElementById("movieList");
