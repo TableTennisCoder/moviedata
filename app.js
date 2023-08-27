@@ -73,7 +73,7 @@ async function extractDataFromPage(page) {
 }
 
 // when user visits the endpoint "/api/data" this code will execute
-app.get("/api/data", async (req, res) => {
+app.get("/", async (req, res) => {
   const cachedData = cache.get("movieData");
 
   // If there are data in cache, use it, otherwise extract them using puppeteer -> takes a few seconds
@@ -149,7 +149,7 @@ app.get("/api/data", async (req, res) => {
 
     await browser.close();
 
-    cache.put("movieData", combinedData, 3600000);
+    cache.put("movieData", combinedData,  43200000); // cache for 12h
 
     res.json(combinedData);
   } catch (error) {
