@@ -111,7 +111,7 @@ app.get("/", async (req, res) => {
     // accept all cookies
     await page.click(".buttonAll");
     // select date in selectbox
-    await page.select("#datvon_Day_ID", "20");
+    // await page.select("#datvon_Day_ID", "20");
 
     // Fill out form to get to the movies page
     await page.evaluate(() => {
